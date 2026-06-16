@@ -3,55 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="icon-192.png" type="image/png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#bb86fc">
     <title>RegexPro Tester & Extractor</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <div class="logo-area">
-                <h1>RegexPro <span class="version">v1.0.0</span></h1>
-                <p>Modern Regular Expression Tester & Extractor</p>
-            </div>
-            <div class="theme-selector">
-                <label for="theme">Tema:</label>
+            <h1>RegexPro <span>Tester</span></h1>
+            <div class="header-controls">
                 <select id="theme">
-                    <option value="dark">Dark (Default)</option>
-                    <option value="light">Light</option>
-                    <option value="blue-dark">Blue Dark</option>
-                    <option value="green-light">Green Light</option>
-                    <option value="orange-pink">Orange-Pink Light</option>
+                    <option value="dark">🌙 Dark</option>
+                    <option value="light">☀️ Light</option>
                 </select>
+                <button id="toggle-cheatsheet" class="btn outline">Cheat Sheet</button>
             </div>
         </header>
 
-        <main>
-            <section class="input-section">
-                <h2>1. Tulis Regex</h2>
-                <div class="regex-inputs">
-                    <span class="slashes">/</span>
-                    <input type="text" id="regex-pattern" placeholder="Masukkan pola regex disini... (misal: \b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b)" autocomplete="off">
-                    <span class="slashes">/</span>
-                    <input type="text" id="regex-flags" placeholder="gmi" value="g" autocomplete="off" maxlength="6">
-                </div>
-                <div id="regex-error" class="error-message"></div>
-            </section>
+        <div id="cheatsheet-panel" class="hidden panel">
+            <h3>Regex Cheat Sheet</h3>
+            <p><code>\d</code> Digit | <code>\w</code> Word | <code>\s</code> Whitespace | <code>^</code> Start | <code>$</code> End | <code>+</code> 1 or more | <code>*</code> 0 or more | <code>?</code> Optional | <code>(?&lt;name&gt;...)</code> Named Group</p>
+        </div>
 
-            <section class="test-section">
-                <h2>2. Teks Pengujian</h2>
-                <textarea id="test-string" placeholder="Masukkan teks yang ingin Anda uji di sini..."></textarea>
-            </section>
-
-            <section class="result-section">
-                <h2>3. Hasil Ekstraksi & Kecocokan (<span id="match-count">0</span>)</h2>
-                <div id="result-output" class="result-box">
-                    <p class="placeholder-text">Hasil akan muncul di sini secara real-time...</p>
+        <div class="input-grid">
+            <div class="box">
+                <label>Regular Expression</label>
+                <div class="regex-input-wrapper">
+                    <span class="slash">/</span>
+                    <input type="text" id="regex-pattern" placeholder="Tulis pola regex (misal: \d+)">
+                    <span class="slash">/</span>
+                    <input type="text" id="regex-flags" placeholder="gmi" value="g" maxlength="6">
                 </div>
-            </section>
-        </main>
+                <div id="regex-error" class="error-text"></div>
+                
+                <div class="controls-row">
+                    <button id="save-regex-btn" class="btn">💾 Simpan Pola</button>
+                    <select id="regex-history"><option value="">-- Pola Tersimpan --</option></select>
+                    <select id="regex-presets">
+                        <option value="">-- Preset Umum --</option>
+                        <option value="email">Email</option>
+                        <option value="url">URL</option>
+                        <option value="ipv4">IPv4 Address</option>
+                        <option value="password">Strong Password</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="box">
+                <label>Test String (Teks Pengujian)</label>
+                <div class="textarea-container">
+                    <div id="highlight-overlay"></div>
+                    <textarea id="test-string" placeholder="Masukkan teks untuk diuji di sini..."></textarea>
+                </div>
+            </div>
+
+            <div class="box">
+                <label>Replacement String (Opsional)</label>
+                <input type="text" id="replace-string" placeholder="Teks pengganti (gunakan $1, $2 untuk grup)">
+                <textarea id="replace-output" readonly placeholder="Hasil penggantian akan muncul di sini..."></textarea>
+            </div>
+        </div>
+
+        <div class="results-panel">
+            <div class="results-header">
+                <h3>Hasil Ekstraksi (<span id="match-count">0</span> Kecocokan) - <span id="exec-time">0.0</span>ms</h3>
+                <div class="export-controls">
+                    <button id="copy-btn" class="btn small">📋 Copy</button>
+                    <button id="export-csv" class="btn small">📄 CSV</button>
+                    <button id="export-json" class="btn small">🤖 JSON</button>
+                </div>
+            </div>
+            <div id="result-output" class="output-box">
+                <p class="placeholder-text">Masukkan regex untuk melihat hasil...</p>
+            </div>
+        </div>
+
+        <div class="code-panel">
+            <div class="code-header">
+                <h3>Code Generator</h3>
+                <select id="code-lang">
+                    <option value="javascript">JavaScript</option>
+                    <option value="python">Python</option>
+                    <option value="php">PHP</option>
+                </select>
+                <button id="copy-code-btn" class="btn small">📋 Copy Code</button>
+            </div>
+            <pre><code id="code-snippet">Pilih atau tulis regex terlebih dahulu...</code></pre>
+        </div>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
