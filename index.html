@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <title>RegexPro Tester & Extractor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-area">
+                <h1>RegexPro <span class="version">v1.0.0</span></h1>
+                <p>Modern Regular Expression Tester & Extractor</p>
+            </div>
+            <div class="theme-selector">
+                <label for="theme">Tema:</label>
+                <select id="theme">
+                    <option value="dark">Dark (Default)</option>
+                    <option value="light">Light</option>
+                    <option value="blue-dark">Blue Dark</option>
+                    <option value="green-light">Green Light</option>
+                    <option value="orange-pink">Orange-Pink Light</option>
+                </select>
+            </div>
+        </header>
+
+        <main>
+            <section class="input-section">
+                <h2>1. Tulis Regex</h2>
+                <div class="regex-inputs">
+                    <span class="slashes">/</span>
+                    <input type="text" id="regex-pattern" placeholder="Masukkan pola regex disini... (misal: \b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b)" autocomplete="off">
+                    <span class="slashes">/</span>
+                    <input type="text" id="regex-flags" placeholder="gmi" value="g" autocomplete="off" maxlength="6">
+                </div>
+                <div id="regex-error" class="error-message"></div>
+            </section>
+
+            <section class="test-section">
+                <h2>2. Teks Pengujian</h2>
+                <textarea id="test-string" placeholder="Masukkan teks yang ingin Anda uji di sini..."></textarea>
+            </section>
+
+            <section class="result-section">
+                <h2>3. Hasil Ekstraksi & Kecocokan (<span id="match-count">0</span>)</h2>
+                <div id="result-output" class="result-box">
+                    <p class="placeholder-text">Hasil akan muncul di sini secara real-time...</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
